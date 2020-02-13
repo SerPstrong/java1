@@ -1,3 +1,4 @@
+
 package l2;
 
 import org.w3c.dom.ls.LSOutput;
@@ -72,9 +73,13 @@ public class L2 {
         int[][] arr = new int[4][4];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                if (arr[1][1] == arr[1][1]) {
-                    System.out.printf("%s ", arr[1][1]);
+                if (i == j || (j == 3 && i == 0 || j == 2 && i == 1 || j == 1 && i == 2 || j == 0 && i == 3)) {
+                    arr[i][j] = 1;
+                } else {
+                    arr[i][j] = 0;
                 }
+                ;
+                System.out.printf("%s ", arr[i][j]);
             }
             System.out.println();
         }
