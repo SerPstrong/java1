@@ -73,7 +73,7 @@ public class L2 {
         int[][] arr = new int[4][4];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                if (i == j || (j == 3 && i == 0 || j == 2 && i == 1 || j == 1 && i == 2 || j == 0 && i == 3)) {
+                if (j == i || j == arr.length - 1 - i) {
                     arr[i][j] = 1;
                 } else {
                     arr[i][j] = 0;
