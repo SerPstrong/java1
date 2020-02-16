@@ -3,6 +3,7 @@ package l2;
 
 import org.w3c.dom.ls.LSOutput;
 
+import javax.xml.transform.SourceLocator;
 import java.util.Arrays;
 
 public class L2 {
@@ -54,6 +55,8 @@ public class L2 {
 
         fillDiagonal();
 
+        System.out.println(maxValue(arrayMul));
+
     }
 
     public static void fillDiagonal() {
@@ -74,10 +77,17 @@ public class L2 {
 
 //        5. **Задать одномерный массив и найти в нем минимальный и максимальный элементы(без помощи интернета);
 
-
+    public static int maxValue(int[] arr) {
+        int max = arr[0];
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+        }
+        return max;
+    }
 
 //        6. **Написать метод, в который передается не пустой одномерный целочисленный массив, метод должен вернуть
-
 //        true, если в массиве есть место, в котором сумма левой и правой части массива равны.Примеры:
 //        checkBalance([2, 2, 2, 1, 2, 2, ||10, 1]) →true, checkBalance([1, 1, 1, ||2, 1]) →true, граница
 //        показана символами ||,эти символы в массив не входят.
