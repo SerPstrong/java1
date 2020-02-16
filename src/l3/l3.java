@@ -1,6 +1,5 @@
 package l3;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -14,29 +13,48 @@ public class l3 {
 //   это число.При каждой попытке компьютер должен сообщить больше ли указанное пользователем число чем
 //   загаданное, или меньше.После победы или проигрыша выводится запрос – «Повторить игру еще раз?1 –да / 0 –нет»(1 –
 //   повторить, 0 –нет).
-        ranNum();
-
+        runGame();
     }
 
-    public static void ranNum() {
+    public static void runGame() {
         int attempt = 3;
+        int counter = 2;
         int randomNumber = rand.nextInt(9);
-        int numb;
+        int option = 1;
 
         do {
-            System.out.println("Введите число:");
-            int n = num.nextInt();
-            if (n == randomNumber) {
-                System.out.println("Вы угадали");
-            } else {
-                System.out.println("Вы не угадали");
-
-
+            System.out.println(randomNumber);//-------------------------
+            if (attempt == 3) {
+                System.out.println("Игра началась! Введите число:");
             }
+            System.out.println("Введите число:");
+            int userNumber = num.nextInt();
+            if (userNumber == randomNumber) {
+                System.out.println("Вы выиграли. " +
+                        "Хотите начать игру заново? 1 -да, 0 -нет");
+                option = num.nextInt();
+                if (option == 1) {
+                    runGame();
+                } else {
+                    System.out.println("Вы выбрали 0, игра закончена");
+                }
+            } else if (userNumber < randomNumber && attempt != 1) {
+                System.out.println("Вы не угадали, загаданное число больше. " + "Осталось попыток " + counter);
+            } else if (userNumber > randomNumber && attempt != 1) {
+                System.out.println("Вы не угадали, загаданное число меньше " + "Осталось попыток " + counter);
+            }
+            counter--;
             attempt--;
-        } while (attempt > 0);
-
-
+            if (attempt == 0 && userNumber != randomNumber) {
+                System.out.println("Вы проиграли! Вы хотите начать игру заново? 1 -да, 0 -нет");
+                option = num.nextInt();
+                if (option == 1) {
+                    runGame();
+                } else {
+                    System.out.println("Вы выбрали 0, игра закончена");
+                }
+            }
+        } while (attempt > 0 && option == 1);
     }
 
 }
