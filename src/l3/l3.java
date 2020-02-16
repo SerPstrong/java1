@@ -23,7 +23,6 @@ public class l3 {
         int option = 1;
 
         do {
-            System.out.println(randomNumber);//-------------------------
             if (attempt == 3) {
                 System.out.println("Игра началась! Введите число:");
             }
