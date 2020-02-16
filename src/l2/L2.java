@@ -57,6 +57,9 @@ public class L2 {
 
         System.out.println(maxValue(arrayMul));
 
+        System.out.println(checkBalance(arrayMul));
+
+        System.out.println(Arrays.toString(shiftArr(arrayMul, 9)));
     }
 
     public static void fillDiagonal() {
@@ -92,8 +95,37 @@ public class L2 {
 //        checkBalance([2, 2, 2, 1, 2, 2, ||10, 1]) →true, checkBalance([1, 1, 1, ||2, 1]) →true, граница
 //        показана символами ||,эти символы в массив не входят.
 
+    public static boolean checkBalance(int[] arr) {
+        int summ = 0;
+        for (int i = 0; i < arr.length; i++) {
+            summ += arr[i];
+        }
+        if (summ % 2 != 0) {
+            return false;
+        }
+        int sumLeft = 0;
+        int i = 0;
+        while (sumLeft < summ / 2) {
+            sumLeft += arr[i];
+            i++;
+        }
+        return sumLeft == summ / 2;
+    }
+
 //        7. ****Написать метод, которому на вход подается одномерный массив и число n (может быть положительным, или
 //        отрицательным),при этом метод должен сместить все элементымассива на n позиций.Для усложнения задачи нельзя
 //        пользоваться вспомогательными массивами.
+
+    public static int[] shiftArr(int[] arr, int n) {
+        int k = n % arr.length + arr.length;
+        for (int i = 0; i < k; i++) {
+            int tmp = arr[arr.length - 1];
+            for (int j = arr.length - 1; j > 0; j--) {
+                arr[j] = arr[j - 1];
+            }
+            arr[0] = tmp;
+        }
+        return arr;
+    }
 
 }
