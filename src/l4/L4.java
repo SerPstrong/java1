@@ -5,8 +5,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class L4 {
-    static final int SIZE = 3;
-//    static final int DOTS_TO_WIN = 3;
+    static final int SIZE = 5;
+    static final int DOTS_TO_WIN = 4;
 
     static final char DOT_X = 'X';
     static final char DOT_O = 'O';
@@ -25,7 +25,7 @@ public class L4 {
             humanTurn();
             printMap();
 
-            if (checkWin(DOT_X)) {
+            if(checkWinLines(DOT_X)){
                 System.out.println("Игрок ПОБЕДИЛ!!!");
                 break;
             }
@@ -38,7 +38,7 @@ public class L4 {
             aiTurn();
             printMap();
 
-            if (checkWin(DOT_O)) {
+            if(checkWinLines(DOT_O)){
                 System.out.println("Искуственный интеллект ПОБЕДИЛ!!!");
                 break;
             }
@@ -95,11 +95,23 @@ public class L4 {
     public static void aiTurn() {
         int x, y;
 
-        for (int i = 0; i < SIZE; i++) {
+        for (int i = 0; i <SIZE ; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if (isCellValid(i, j)) {
+                if(isCellValid(i,j)){
+                    map[i][j] = DOT_O;
+                    if(checkWinLines(DOT_O)){
+                        return;
+                    }
+                    map[i][j] = DOT_EMPTY;
+                }
+            }
+        }
+
+        for (int i = 0; i <SIZE ; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if(isCellValid(i,j)) {
                     map[i][j] = DOT_X;
-                    if (checkWin(DOT_X)) {
+                    if (checkWinLines(DOT_X)) {
                         map[i][j] = DOT_O;
                         return;
                     }
@@ -129,34 +141,46 @@ public class L4 {
     }
 
     public static boolean checkWin(char symbol) {
-        if (map[0][0] == symbol && map[0][1] == symbol && map[0][2] == symbol) {
-            return true;
-        }
-        if (map[1][0] == symbol && map[1][1] == symbol && map[1][2] == symbol) {
-            return true;
-        }
-        if (map[2][0] == symbol && map[2][1] == symbol && map[2][2] == symbol) {
-            return true;
-        }
+        if (map[0][0] == symbol && map[0][1] == symbol && map[0][2] == symbol){ return true; }
+        if (map[1][0] == symbol && map[1][1] == symbol && map[1][2] == symbol){ return true; }
+        if (map[2][0] == symbol && map[2][1] == symbol && map[2][2] == symbol){ return true; }
 
-        if (map[0][0] == symbol && map[1][0] == symbol && map[2][0] == symbol) {
-            return true;
-        }
-        if (map[0][1] == symbol && map[1][1] == symbol && map[2][1] == symbol) {
-            return true;
-        }
-        if (map[0][2] == symbol && map[1][2] == symbol && map[2][2] == symbol) {
-            return true;
-        }
+        if (map[0][0] == symbol && map[1][0] == symbol && map[2][0] == symbol){ return true; }
+        if (map[0][1] == symbol && map[1][1] == symbol && map[2][1] == symbol){ return true; }
+        if (map[0][2] == symbol && map[1][2] == symbol && map[2][2] == symbol){ return true; }
 
-        if (map[0][0] == symbol && map[1][1] == symbol && map[2][2] == symbol) {
-            return true;
-        }
-        if (map[0][2] == symbol && map[1][1] == symbol && map[2][0] == symbol) {
-            return true;
-        }
+        if (map[0][0] == symbol && map[1][1] == symbol && map[2][2] == symbol){ return true; }
+        if (map[0][2] == symbol && map[1][1] == symbol && map[2][0] == symbol){ return true; }
 
         return false;
     }
+
+
+    static boolean checkLine(int cy, int cx, int vy, int vx, char dot) {
+        if (cx + vx * DOTS_TO_WIN - 1 > SIZE - 1 || cy + vy * DOTS_TO_WIN - 1 > SIZE - 1 ||
+                cy + vy * DOTS_TO_WIN - 1 < 0) {
+            return false;
+        }
+
+        for (int i = 0; i < DOTS_TO_WIN; i++) {
+            if (map[cy + i * vy][cx + i * vx] != dot) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static boolean checkWinLines(char dot) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (checkLine(i, j, 0, 1, dot) || checkLine(i, j, 1, 0, dot) ||
+                        checkLine(i, j, 1, 1, dot) || checkLine(i, j, -1, 1, dot)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
 }
