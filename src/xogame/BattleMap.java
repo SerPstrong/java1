@@ -103,6 +103,9 @@ public class BattleMap extends JPanel {
         g.drawLine(cellX * cellWidth, cellY * cellHeight,
                 (cellX + 1) * cellWidth, (cellY + 1) * cellHeight);
 
+        g.drawLine((cellX + 1) * cellWidth, cellY * cellHeight,
+                cellX  * cellWidth, (cellY + 1) * cellHeight);
+
     }
 
     private void drawO(Graphics g, int cellX, int cellY) {
