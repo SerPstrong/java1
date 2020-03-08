@@ -39,8 +39,8 @@ public class Logic {
         printMap();
 
         if (checkWinLines(DOT_O)) {
-            System.out.println("Искуственный интеллект ПОБЕДИЛ!!!");
-            winnerName ="Искуственный интеллект ПОБЕДИЛ!!!";
+            System.out.println("Искусственный интеллект ПОБЕДИЛ!!!");
+            winnerName ="Искусственный интеллект ПОБЕДИЛ!!!";
             return;
         }
 
